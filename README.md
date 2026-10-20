@@ -1,5 +1,5 @@
 # jusText-java
-java port for jusText
+java port for jusText from https://github.com/miso-belica/jusText/tree/main
 
 Yes — based on the package metadata in setup.py, this project declares these dependencies:
 
