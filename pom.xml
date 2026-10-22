@@ -11,13 +11,36 @@
 
     <name>jusText-java</name>
     <description>Heuristic based boilerplate removal tool (Java port of jusText)</description>
-    <url>https://github.com/miso-belica/jusText</url>
+    <url>https://github.com/danielonet/jusText-java</url>
 
     <licenses>
         <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+        <!-- upstream jusText (Python) license, see licenses/LICENSE-jusText.txt -->
+        <license>
             <name>The BSD 2-Clause License</name>
+            <url>https://opensource.org/licenses/BSD-2-Clause</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <id>danielonet</id>
+            <name>danielonet</name>
+            <url>https://github.com/danielonet</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/danielonet/jusText-java.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/danielonet/jusText-java.git</developerConnection>
+        <url>https://github.com/danielonet/jusText-java</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
@@ -69,4 +92,75 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Maven Central release: mvn -P release clean deploy
+             needs a Central Portal token in settings.xml (server id "central") and a GPG key -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.11.2</version>
+                        <configuration>
+                            <doclint>none</doclint>
+                            <quiet>true</quiet>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.7</version>
+                        <configuration>
+                            <!-- passphrase from MAVEN_GPG_PASSPHRASE or the gpg agent, never from settings.xml -->
+                            <bestPractices>true</bestPractices>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
