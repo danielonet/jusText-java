@@ -1,5 +1,7 @@
 # jusText-java
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.danielonet/justext?logo=apachemaven)](https://central.sonatype.com/artifact/io.github.danielonet/justext)
+[![build](https://github.com/danielonet/jusText-java/actions/workflows/build.yml/badge.svg)](https://github.com/danielonet/jusText-java/actions/workflows/build.yml)
 [![Java](https://img.shields.io/badge/Java-21-blue?logo=openjdk)](https://openjdk.org/projects/jdk/21/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
